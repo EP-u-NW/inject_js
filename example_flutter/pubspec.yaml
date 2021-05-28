@@ -1,0 +1,18 @@
+name: inject_js_example_flutter
+description: A Flutter project to explain the inject_js package.
+publish_to: 'none' 
+version: 1.0.0+1
+
+environment:
+  sdk: ">=2.12.0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  inject_js:
+    path: ..
+    
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/hello_world.js
