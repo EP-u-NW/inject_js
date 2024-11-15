@@ -1,7 +1,7 @@
 name: inject_js
 description: Import and use javascript libraries or code in your dart2js or flutter web projects
-version: 2.0.0
-repository: https://github.com/EPNW/inject_js
+version: 2.1.0
+repository: https://github.com/EP-u-NW/inject_js
 
 environment:
-  sdk: ">=2.12.0 <3.0.0"
+  sdk: ^3.0.0

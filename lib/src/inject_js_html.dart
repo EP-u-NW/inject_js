@@ -33,13 +33,14 @@ class _Library {
 
 html.ScriptElement _createScriptTagFromUrl(_Library library) {
   var scriptElement = html.ScriptElement()
-      ..type = "text/javascript"
-      ..charset = "utf-8"
-      ..async = true
-      //..defer = true
-      ..src = library.url;
+    ..type = "text/javascript"
+    ..charset = "utf-8"
+    ..async = true
+    //..defer = true
+    ..src = library.url;
   if (library.integrity != null) {
-    scriptElement..integrity = library.integrity
+    scriptElement
+      ..integrity = library.integrity
       ..crossOrigin = "anonymous";
   }
   return scriptElement;
