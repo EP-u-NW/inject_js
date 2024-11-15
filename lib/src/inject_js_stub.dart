@@ -2,8 +2,9 @@
 /// Throws an [UnsupportedError] if the [dart:html] library is not present.
 ///
 /// This works by adding a new script tag to the html page with the src tag set to url.
-Future<void> importLibrary(String url) => throw new UnsupportedError(
-    'Injecting js is only possible if the platform supports dart:hmtl!');
+Future<void> importLibrary(String url, {String? integrity = null}) =>
+    throw new UnsupportedError(
+        'Injecting js is only possible if the platform supports dart:hmtl!');
 
 /// Injects the javascript code [src] into the page.
 /// Throws an [UnsupportedError] if the [dart:html] library is not present.

@@ -1,5 +1,5 @@
 Run
 ```sh
-dart2js ./bin/main.dart -o ./web/main.dart.js 
+dart compile js ./bin/main.dart -o ./web/main.dart.js 
 ```
 from the same folder as this README, then open web/index.html in your browser.
