@@ -4,8 +4,8 @@ import 'dart:html' as html;
 /// Throws an [UnsupportedError] if the [dart:html] library is not present.
 ///
 /// This works by adding a new script tag to the html page with the src tag set to url.
-Future<void> importLibrary(String url) {
-  return _importJsLibraries([url]);
+Future<void> importLibrary(String url, {String? integrity = null}) {
+  return _importJsLibraries([_Library(url: url, integrity: integrity)]);
 }
 
 /// Injects the javascript code [src] into the page.
@@ -24,13 +24,26 @@ bool isImported(String url) {
   return _isLoaded(_htmlHead(), url);
 }
 
-html.ScriptElement _createScriptTagFromUrl(String library) =>
-    html.ScriptElement()
+class _Library {
+  final String url;
+  final String? integrity;
+
+  _Library({required this.url, this.integrity});
+}
+
+html.ScriptElement _createScriptTagFromUrl(_Library library) {
+  var scriptElement = html.ScriptElement()
       ..type = "text/javascript"
       ..charset = "utf-8"
       ..async = true
       //..defer = true
-      ..src = library;
+      ..src = library.url;
+  if (library.integrity != null) {
+    scriptElement..integrity = library.integrity
+      ..crossOrigin = "anonymous";
+  }
+  return scriptElement;
+}
 
 html.ScriptElement _createScriptTagFromSrc(String src) => html.ScriptElement()
   ..type = "text/javascript"
@@ -39,11 +52,11 @@ html.ScriptElement _createScriptTagFromSrc(String src) => html.ScriptElement()
   //..defer = true
   ..innerText = src;
 
-Future<void> _importJsLibraries(List<String> libraries) {
+Future<void> _importJsLibraries(List<_Library> libraries) {
   List<Future<void>> loading = <Future<void>>[];
   html.Element head = _htmlHead();
-  libraries.forEach((String library) {
-    if (!isImported(library)) {
+  libraries.forEach((_Library library) {
+    if (!isImported(library.url)) {
       final scriptTag = _createScriptTagFromUrl(library);
       head.children.add(scriptTag);
       loading.add(scriptTag.onLoad.first);
